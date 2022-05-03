@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from taggit.managers import TaggableManager
 from django_countries.fields import CountryField
+from django.utils.text import slugify
 # Create your models here.
 
 
@@ -9,6 +10,9 @@ class Room(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     room_type_name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=250)
+
+    def __str__(self):
+        return self.room_type_name
 
 
 class Address(models.Model):
@@ -19,6 +23,9 @@ class Address(models.Model):
     city = models.CharField(max_length=100)
     country = CountryField()
     zip_code = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.city
 
 
 class Property(models.Model):
@@ -60,3 +67,7 @@ class Property(models.Model):
 
     def __str__(self):
         return self.property_name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.property_name)
+        super(Property, self).save(*args, **kwargs)

@@ -1,0 +1,9 @@
+{% include 'base.html' %} {% block content %}
+<h1>Add The Property</h1>
+
+<form method="post">
+  {% csrf_token %} {{ day_form }} <br />
+  {{ formset.management_form }} {{ form }}<br /><br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
