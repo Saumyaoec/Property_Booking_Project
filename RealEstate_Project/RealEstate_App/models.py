@@ -38,7 +38,6 @@ class Property(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     property_name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=250)
-    slug = models.SlugField(max_length=250)
     room_type = models.ForeignKey(
         Room, on_delete=models.CASCADE, related_name='room_type')
     bed_room = models.IntegerField()
